@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FOMO
 
-## Getting Started
+Tool to turn your datapoints on Beeminder into a blog.
 
-First, run the development server:
+## How to run it
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Clone repo
+2. Fill .env file
+3. `node generateData.mjs`
+4. `npm run dev`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## How to deploy it
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Either deploy to Vercel or self host.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To self host, `next export` or `next build` will generate code for you.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To host on Vercel, create new project and import your repo. Make sure to fill env variables.
 
-## Learn More
+## I added a datapoint, my blog is not reflecting it
 
-To learn more about Next.js, take a look at the following resources:
+Run `node generateData.mjs` or `npm run build`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## I deployed on Vercel, I want to have redeploy on new datapoint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Add Vercel deployment webhook in beeminder goal settings (PESOS webhook)
 
-## Deploy on Vercel
+## How do I add new posts?
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Call yourwebsite/api/add with POST request and headers: title, content, tags, category, rating and auth_token.
+auth_token is your beeminder token.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You might use iOS shortcuts or Postman as your GUI.
