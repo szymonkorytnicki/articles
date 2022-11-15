@@ -17,7 +17,7 @@ async function fetchBeeminderDatapoints() {
       timestamp: datapoint.timestamp,
       title: info.title,
       tags: info.tags || "",
-      rating: info.rating || "N/A",
+      rating: info.rating || "",
       content: info.content || "",
     };
   });

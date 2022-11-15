@@ -3,10 +3,8 @@ import articles from "../../data.json";
 export default function Article({ article }) {
   return (
     <div>
-      <h1>
-        <a href={article.url}>{article.url}</a>
-      </h1>
-      <p>{article.description}</p>
+      <h1>{article.title}</h1>
+      <p>{article.content}</p>
       <small>#{article.tags.split(" ").join(" #")}</small>
     </div>
   );
