@@ -8,3 +8,45 @@ export const article = style({
   border: "1px solid #ccc",
   position: "relative",
 });
+
+export const description = style({
+  marginBottom: "40px",
+});
+
+export const button = style({
+  padding: "10px",
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+  background: "#fff",
+  cursor: "pointer",
+});
+
+export const tag = style({
+  padding: "5px",
+  marginRight: "5px",
+  borderRadius: "5px",
+  border: "1px solid #ccc",
+  fontSize: 0.8 + "em",
+});
+
+export const rating = style({
+  position: "absolute",
+  top: "10px",
+  right: "10px",
+  background: "#ccc",
+  color: "white",
+  fontSize: "1.5rem",
+  padding: "5px",
+});
+
+export const bgRed = style({
+  backgroundColor: "red",
+});
+
+export const bgOrange = style({
+  backgroundColor: "orange",
+});
+
+export const bgGreen = style({
+  backgroundColor: "green",
+});

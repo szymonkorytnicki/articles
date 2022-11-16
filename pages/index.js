@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 import articles from "../data.json";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-import { Article } from "../components/components";
+import { Article, Description, Tag, Button, Rating } from "../components/components";
 
 export default function Home({ articles }) {
   return (
@@ -20,7 +20,7 @@ export default function Home({ articles }) {
 
       <main className={styles.main}>
         <h3>{publicRuntimeConfig.title}</h3>
-        <div style={{ marginBottom: "40px" }}>{publicRuntimeConfig.description}</div>
+        <Description>{publicRuntimeConfig.description}</Description>
         {articles.map((article) => {
           return (
             <Article key={article.id}>
@@ -95,70 +95,12 @@ function Time({ timestamp }) {
   return <time dateTime={new Date(timestamp * 1000).toISOString()}>{new Date(timestamp * 1000).toLocaleString()}</time>;
 }
 
-function Button({ children, onClick }) {
-  return (
-    <button
-      style={{
-        padding: "10px",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
-        background: "#fff",
-        cursor: "pointer",
-      }}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-}
-
 function TagsList({ tags }) {
   return (
     <div style={{ padding: "20px", paddingLeft: "0px" }}>
       {tags.split(" ").map((tag) => {
-        return (
-          <span
-            key={tag}
-            style={{
-              padding: "5px",
-              marginRight: "5px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-              fontSize: 0.8 + "em",
-            }}
-          >
-            {tag}
-          </span>
-        );
+        return <Tag key={tag}>{tag}</Tag>;
       })}
     </div>
   );
-}
-
-function Rating({ rating }) {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: "10px",
-        right: "10px",
-        background: getBackground(rating),
-        color: "white",
-        fontSize: "1.5rem",
-        padding: "5px",
-      }}
-    >
-      {rating}
-    </div>
-  );
-}
-
-function getBackground(rating) {
-  if (rating < 3) {
-    return "red";
-  }
-  if (rating < 5) {
-    return "orange";
-  }
-  return "green";
 }
