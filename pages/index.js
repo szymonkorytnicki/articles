@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 import articles from "../data.json";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
+import { Article } from "../components/components";
 
 export default function Home({ articles }) {
   return (
@@ -22,17 +23,7 @@ export default function Home({ articles }) {
         <div style={{ marginBottom: "40px" }}>{publicRuntimeConfig.description}</div>
         {articles.map((article) => {
           return (
-            <article
-              key={article.id}
-              style={{
-                padding: "20px",
-                margin: "10px",
-                maxWidth: "600px",
-                width: "100%",
-                border: "1px solid #ccc",
-                position: "relative",
-              }}
-            >
+            <Article key={article.id}>
               {article.rating && <Rating rating={article.rating} />}
               <header>
                 <small>
@@ -55,7 +46,7 @@ export default function Home({ articles }) {
               >
                 Copy URL
               </Button>
-            </article>
+            </Article>
           );
         })}
       </main>
