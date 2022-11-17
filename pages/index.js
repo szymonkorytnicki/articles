@@ -1,12 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 import articles from "../data.json";
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-import { Article, Description, Tag, Button, Rating } from "../components/components";
+import { Article, ArticleTitle, Description, Time, TagsList, Button, Rating } from "../components/components";
+import Link from "next/link";
 
 export default function Home({ articles }) {
   return (
@@ -27,13 +26,13 @@ export default function Home({ articles }) {
               {article.rating && <Rating rating={article.rating} />}
               <header>
                 <small>
-                  <a href={`/articles/${article.id}`}>
+                  <Link href={`/articles/${article.id}`}>
                     <Time timestamp={article.timestamp} />
-                  </a>
+                  </Link>
                 </small>
-                <h2>
-                  <a href={`/articles/${article.id}`}>{article.title}</a>
-                </h2>
+                <Link href={`/articles/${article.id}`}>
+                  <ArticleTitle>{article.title}</ArticleTitle>
+                </Link>
               </header>
               <div>{article.content}</div>
               <TagsList tags={article.tags} />
@@ -78,29 +77,4 @@ export async function getStaticProps() {
       articles,
     },
   };
-}
-
-function Time({ timestamp }) {
-  const [state, setState] = useState(false);
-  const router = useRouter();
-  useEffect(() => {
-    if (router.isReady) {
-      setState(true);
-    }
-  }, [router.isReady]);
-
-  if (!state) {
-    return <span>&nbsp;</span>;
-  }
-  return <time dateTime={new Date(timestamp * 1000).toISOString()}>{new Date(timestamp * 1000).toLocaleString()}</time>;
-}
-
-function TagsList({ tags }) {
-  return (
-    <div style={{ padding: "20px", paddingLeft: "0px" }}>
-      {tags.split(" ").map((tag) => {
-        return <Tag key={tag}>{tag}</Tag>;
-      })}
-    </div>
-  );
 }

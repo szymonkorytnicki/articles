@@ -9,6 +9,15 @@ export const article = style({
   position: "relative",
 });
 
+export const articleTitle = style({
+  fontSize: "1.5rem",
+  fontWeight: "bold",
+  marginBottom: "10px",
+  maxWidth: "100%",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+});
+
 export const description = style({
   marginBottom: "40px",
 });

@@ -1,5 +1,7 @@
 import * as style from "./components.css";
 import classNames from "classnames";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 
 function styled(Component) {
   return function (className) {
@@ -21,6 +23,7 @@ function getBackground(rating) {
 }
 
 export const Article = styled("article")(style.article);
+export const ArticleTitle = styled("h2")(style.articleTitle);
 export const Description = styled("div")(style.description);
 export const Button = styled("button")(style.button);
 export const Tag = styled("span")(style.tag);
@@ -28,3 +31,28 @@ export const RatingStyle = styled("span")(style.rating);
 export const Rating = ({ rating }) => {
   return <RatingStyle className={classNames(getBackground(rating))}>{rating}</RatingStyle>;
 };
+
+export function TagsList({ tags }) {
+  return (
+    <div style={{ padding: "20px", paddingLeft: "0px" }}>
+      {tags.split(" ").map((tag) => {
+        return <Tag key={tag}>{tag}</Tag>;
+      })}
+    </div>
+  );
+}
+
+export function Time({ timestamp }) {
+  const [state, setState] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    if (router.isReady) {
+      setState(true);
+    }
+  }, [router.isReady]);
+
+  if (!state) {
+    return <span>&nbsp;</span>;
+  }
+  return <time dateTime={new Date(timestamp * 1000).toISOString()}>{new Date(timestamp * 1000).toLocaleString()}</time>;
+}
