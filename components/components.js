@@ -36,7 +36,7 @@ export function TagsList({ tags }) {
   return (
     <div style={{ padding: "20px", paddingLeft: "0px" }}>
       {tags.split(" ").map((tag) => {
-        return <Tag key={tag}>{tag}</Tag>;
+        return <Tag key={tag}>#{tag}</Tag>;
       })}
     </div>
   );
