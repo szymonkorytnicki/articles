@@ -43,7 +43,7 @@ export default function ArticlePage({ article }) {
             Copy URL
           </Button>
           {article.title.startsWith("http") && (
-            <a href={article.title} target="_blank" style={{ marginLeft: "5px" }}>
+            <a href={article.title} target="_blank" rel="noopener noreferrer" style={{ marginLeft: "5px" }}>
               <Button>Visit source</Button>
             </a>
           )}
