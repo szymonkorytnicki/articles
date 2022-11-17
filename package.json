@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "node generateData.mjs && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@vanilla-extract/css": "^1.9.2",
