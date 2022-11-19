@@ -37,10 +37,21 @@ async function addBeeminderPost(comment: string, authToken: string): Promise<str
 }
 
 function addMastodonPost(datapointId: string, data: any) {
-  if (!datapointId || !process.env.MASTODON_INSTANCE || !process.env.MASTODON_SECRET) {
-    console.debug("Missing datapoint id or env (mastodon instance or secret)");
+  if (!process.env.MASTODON_INSTANCE) {
+    console.log("Missing instance");
     return;
   }
+
+  if (!process.env.MASTODON_SECRET) {
+    console.log("Missing secret");
+    return;
+  }
+
+  if (!datapointId) {
+    console.log("Missing datapoint id");
+    return;
+  }
+
   fetch(`https://${process.env.MASTODON_INSTANCE}/api/v1/statuses`, {
     method: "POST",
     headers: {
@@ -50,5 +61,5 @@ function addMastodonPost(datapointId: string, data: any) {
     body: JSON.stringify({
       status: `New article with rating ${data.rating}: ${process.env.BASE_URL}/articles/${datapointId}`,
     }),
-  });
+  }).catch((e) => console.log(e));
 }
