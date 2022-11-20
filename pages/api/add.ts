@@ -19,7 +19,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
     return response.status(500).json({ status: "error" });
   }
 
-  addMastodonPost(datapointId, articleData);
+  // Shhhh kid, want to integrate with 3rd party service here? Use IFTTT, Zapier or Make.com!
 
   response.status(200).json({ status: "ok" });
 }
@@ -34,32 +34,4 @@ async function addBeeminderPost(comment: string, authToken: string): Promise<str
 
   const json = await resource.json();
   return json.id as string;
-}
-
-function addMastodonPost(datapointId: string, data: any) {
-  if (!process.env.MASTODON_INSTANCE) {
-    console.log("Missing instance");
-    return;
-  }
-
-  if (!process.env.MASTODON_SECRET) {
-    console.log("Missing secret");
-    return;
-  }
-
-  if (!datapointId) {
-    console.log("Missing datapoint id");
-    return;
-  }
-
-  fetch(`https://${process.env.MASTODON_INSTANCE}/api/v1/statuses`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.MASTODON_SECRET}`,
-    },
-    body: JSON.stringify({
-      status: `New article with rating ${data.rating}: ${process.env.BASE_URL}/articles/${datapointId}`,
-    }),
-  }).catch((e) => console.log(e));
 }
