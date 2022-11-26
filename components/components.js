@@ -38,8 +38,8 @@ export function TagsList({ tags }) {
     <div style={{ padding: "20px", paddingLeft: "0px" }}>
       {tags.split(" ").map((tag) => {
         return (
-          <Link href={`/tags/${tag}`}>
-            <Tag key={tag}>#{tag}</Tag>
+          <Link key={tag} href={`/tags/${tag}`}>
+            <Tag>#{tag}</Tag>
           </Link>
         );
       })}
