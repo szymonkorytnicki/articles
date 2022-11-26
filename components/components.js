@@ -2,6 +2,7 @@ import * as style from "./components.css";
 import classNames from "classnames";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function styled(Component) {
   return function (className) {
@@ -36,7 +37,11 @@ export function TagsList({ tags }) {
   return (
     <div style={{ padding: "20px", paddingLeft: "0px" }}>
       {tags.split(" ").map((tag) => {
-        return <Tag key={tag}>#{tag}</Tag>;
+        return (
+          <Link href={`/tags/${tag}`}>
+            <Tag key={tag}>#{tag}</Tag>
+          </Link>
+        );
       })}
     </div>
   );

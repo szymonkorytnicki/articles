@@ -13,7 +13,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
   let datapointId = "";
 
   try {
-    datapointId = await addBeeminderPost(comment, request.body.auth_token);
+    datapointId = await addBeeminderPost(comment);
   } catch (e) {
     console.log(e, comment);
     return response.status(500).json({ status: "error" });
@@ -24,9 +24,9 @@ export default async function handler(request: NextApiRequest, response: NextApi
   response.status(200).json({ status: "ok" });
 }
 
-async function addBeeminderPost(comment: string, authToken: string): Promise<string> {
+async function addBeeminderPost(comment: string): Promise<string> {
   const resource = await fetch(
-    `https://www.beeminder.com/api/v1/users/${process.env.BEEMINDER_USERNAME}/goals/${process.env.BEEMINDER_GOAL}/datapoints.json?auth_token=${authToken}&value=1&comment=${comment}`,
+    `https://www.beeminder.com/api/v1/users/${process.env.BEEMINDER_USERNAME}/goals/${process.env.BEEMINDER_GOAL}/datapoints.json?auth_token=${process.env.BEEMINDER_API_TOKEN}&value=1&comment=${comment}`,
     {
       method: "POST",
     }
