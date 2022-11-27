@@ -105,7 +105,7 @@ export function getStaticPaths() {
 export async function getStaticProps(context) {
   return {
     props: {
-      articles: articles.filter((article) => article.tags.includes(context.params.id)),
+      articles: articles.filter((article) => article.tags.includes(context.params.tag)),
       tag: context.params.tag ? context.params.tag : "",
     },
   };
