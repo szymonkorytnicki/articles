@@ -81,12 +81,20 @@ export default function Home({ articles, tag }) {
 }
 
 export function getStaticPaths() {
-  const tags = articles.map((article) => article.tags.split(" ")).flat();
+  const tags = Array.from(
+    new Set(
+      articles
+        .map((article) => article.tags.split(" "))
+        .flat()
+        .filter((tag) => tag)
+    )
+  );
+
   return {
     paths: tags.map((tag) => {
       return {
         params: {
-          id: tag,
+          tag: tag || "",
         },
       };
     }),
@@ -98,7 +106,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       articles: articles.filter((article) => article.tags.includes(context.params.id)),
-      tag: context.params.id,
+      tag: context.params.tag ? context.params.tag : "",
     },
   };
 }
