@@ -60,6 +60,7 @@ export default function Home({ articles }) {
           <a href="https://twitter.com/skorytnicki" target="_blank" rel="noopener noreferrer">
             Built with FOMO-BMDR by @skorytnicki
           </a>
+          <Link href="/stats">Stats for nerds</Link>
         </div>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"

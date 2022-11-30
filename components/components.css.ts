@@ -31,6 +31,7 @@ export const button = style({
 });
 
 export const tag = style({
+  display: "inline-block",
   padding: "5px",
   marginRight: "5px",
   borderRadius: "5px",
