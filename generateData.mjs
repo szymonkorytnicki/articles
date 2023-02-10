@@ -9,18 +9,23 @@ async function fetchBeeminderDatapoints() {
   );
   const data = await res.json();
 
-  return data.map((datapoint) => {
-    const info = JSON.parse(datapoint.comment);
+  return data
+    .map((datapoint) => {
+      if (datapoint.comment.startsWith("#")) {
+        return null;
+      }
+      const info = JSON.parse(datapoint.comment);
 
-    return {
-      id: datapoint.id,
-      timestamp: datapoint.timestamp,
-      title: info.title,
-      tags: info.tags || "",
-      rating: info.rating || "",
-      content: info.content || "",
-    };
-  });
+      return {
+        id: datapoint.id,
+        timestamp: datapoint.timestamp,
+        title: info.title,
+        tags: info.tags || "",
+        rating: info.rating || "",
+        content: info.content || "",
+      };
+    })
+    .filter((x) => x);
 }
 
 function saveJSONToFileFs(data) {
