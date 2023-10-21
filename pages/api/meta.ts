@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next/types";
+import { addBeeminderDatapoint, hasDatapointToday } from "../../utils/beeminder";
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
   const data = {
@@ -6,7 +7,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
     slugTo: request.query.slugTo || "",
   };
 
-  if (data.slugFrom === "" || data.slugTo === "") {
+  if (!data.slugFrom || !data.slugTo) {
     return response.status(200).json({ status: "error" });
   }
 
@@ -26,24 +27,4 @@ export default async function handler(request: NextApiRequest, response: NextApi
   addBeeminderDatapoint(data.slugTo, "added from " + data.slugFrom);
 
   response.status(200).json({ status: "ok" });
-}
-
-async function addBeeminderDatapoint(goal, comment): Promise<string> {
-  const resource = await fetch(
-    `https://www.beeminder.com/api/v1/users/${process.env.BEEMINDER_USERNAME}/goals/${goal}/datapoints.json?auth_token=${process.env.BEEMINDER_API_TOKEN}&value=1&comment=${comment}`,
-    {
-      method: "POST",
-    }
-  );
-
-  const json = await resource.json();
-  return json.id as string;
-}
-
-function hasDatapointToday(goalData) {
-  const data = goalData.datapoints;
-  const today = new Date();
-
-  const beginningOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-  return data.some((d) => new Date(d.timestamp * 1000) >= beginningOfToday && d.value > 0);
 }
