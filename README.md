@@ -1,4 +1,9 @@
-# FOMO
+# articles.interestingprojects.net
+
+todo
+- document vars
+- multitenant
+
 
 Tool to turn your datapoints on Beeminder into a blog.
 
