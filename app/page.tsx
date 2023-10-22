@@ -1,0 +1,25 @@
+import Link from "next/link";
+import { getArticles } from "../utils/articles";
+
+export default async function Page() {
+  const articles = await getArticles();
+
+  return (
+    <div>
+      Articles
+      <>
+        {articles?.map((article) => {
+          return (
+            <div key={article.id}>
+              <Link href={`/posts/${article.id}`}>
+                <h2>{article.title}</h2>
+              </Link>
+              <p>{article.description}</p>
+              <p>Rating: {article.rating}</p>
+            </div>
+          );
+        })}
+      </>
+    </div>
+  );
+}
