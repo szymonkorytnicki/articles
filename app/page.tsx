@@ -16,6 +16,7 @@ export default async function Page() {
               </Link>
               <p>{article.description}</p>
               <p>Rating: {article.rating}</p>
+              <p>Added: {article.created_at}</p>
             </div>
           );
         })}
