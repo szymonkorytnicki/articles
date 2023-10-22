@@ -17,7 +17,7 @@ export async function getArticleFn(id: string) {
 export const getArticle = cache(getArticleFn);
 
 export async function getArticlesFn() {
-  let { data: articles } = await supabase.from("articles").select("*").order('id', { ascending: false });
+  let { data: articles } = await supabase.from("articles").select("*").order('created_at', { ascending: false });
   return articles;
 }
 
