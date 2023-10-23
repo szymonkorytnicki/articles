@@ -7,6 +7,9 @@ const supabaseKey = process.env.DB_KEY;
 if (!supabaseUrl || !supabaseKey) {
   throw new Error("Env vars missing");
 }
+
+export const revalidate = 1000;
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function getArticleFn(id: string) {

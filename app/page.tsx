@@ -6,7 +6,7 @@ export default async function Page() {
 
   return (
     <div>
-      Articles
+      Articles that I was reading recently
       <>
         {articles?.map((article) => {
           return (
