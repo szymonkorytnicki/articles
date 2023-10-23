@@ -5,5 +5,6 @@ export const metadata = {
 };
 
 export default async function Page({ params: { id } }: { params: { id: string } }) {
+  /* @ts-expect-error Server Component */
   return <Post id={id} />;
 }
