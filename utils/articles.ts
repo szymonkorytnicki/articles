@@ -19,9 +19,16 @@ export async function getArticleFn(id: string) {
 
 export const getArticle = cache(getArticleFn);
 
-export async function getArticlesFn() {
-  let { data: articles } = await supabase.from("articles").select("*").order("created_at", { ascending: false });
-  return articles;
+export async function getArticlesFn({ page }: { page: number }) {
+  let { data: articles } = await supabase
+    .from("articles")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .range((page - 1) * 10, (page - 1) * 10 + 10);
+
+  let { count: total } = await supabase.from("articles").select("id", { count: "exact" });
+
+  return { articles, total };
 }
 
 export const getArticles = cache(getArticlesFn);
