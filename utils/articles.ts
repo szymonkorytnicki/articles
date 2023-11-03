@@ -1,20 +1,13 @@
-// @ts-nocheck
-import { createClient } from "@supabase/supabase-js";
 import { cache } from "react";
-
-const supabaseUrl = process.env.DB_URL;
-const supabaseKey = process.env.DB_KEY;
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Env vars missing");
-}
-
+import { supabase } from "./supabase";
 export const revalidate = 1000;
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function getArticleFn(id: string) {
   let { data: articles } = await supabase.from("articles").select("*").eq("id", id);
-  return articles[0];
+  if (articles) {
+    return articles[0];
+  }
+  return null;
 }
 
 export const getArticle = cache(getArticleFn);
