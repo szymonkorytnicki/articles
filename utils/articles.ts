@@ -1,8 +1,6 @@
-import { cache } from "react";
 import { supabase } from "./supabase";
-export const revalidate = 1000;
 
-export async function getArticleFn(id: string) {
+export async function getArticle(id: string) {
   let { data: articles } = await supabase.from("articles").select("*").eq("id", id);
   if (articles) {
     return articles[0];
@@ -10,9 +8,7 @@ export async function getArticleFn(id: string) {
   return null;
 }
 
-export const getArticle = cache(getArticleFn);
-
-export async function getArticlesFn({ page }: { page: number }) {
+export async function getArticles({ page }: { page: number }) {
   let { data: articles } = await supabase
     .from("articles")
     .select("*")
@@ -23,5 +19,3 @@ export async function getArticlesFn({ page }: { page: number }) {
 
   return { articles, total };
 }
-
-export const getArticles = cache(getArticlesFn);
